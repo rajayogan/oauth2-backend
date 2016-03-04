@@ -1,0 +1,11 @@
+{
+  "name": "ionic-auth-demo",
+  "version": "1.0.0",
+  "description": "demo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rajayogan",
+  "license": "MIT"
+}
