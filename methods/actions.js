@@ -28,6 +28,9 @@ var functions = {
     },
     addNew: function(req, res){
         if((!req.body.name) || (!req.body.password)){
+            console.log(req.body.name);
+            console.log(req.body.password);
+            
             res.json({success: false, msg: 'Enter all values'});
         }
         else {
@@ -46,7 +49,18 @@ var functions = {
                 }
             })
         }
+    },
+    getinfo: function(req, res){
+        if(req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            var token = req.headers.authorization.split(' ')[1];
+            var decodedtoken = jwt.decode(token, config.secret);
+            return res.json({success: true, msg: 'hello '+decodedtoken.name});
+        }
+        else {
+            return res.json({success:false, msg: 'No header'});
+        }
     }
+    
     
 }
 
