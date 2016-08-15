@@ -1,4 +1,5 @@
 var User = require('../model/user');
+var Book = require('../model/book');
 var config = require('../config/database');
 var jwt = require('jwt-simple');
 
@@ -18,6 +19,7 @@ var functions = {
                     if(isMatch && !err) {
                         var token = jwt.encode(user, config.secret);
                         res.json({success: true, token: token});
+                        config.userid = user._id;
                     } else {
                         return res.status(403).send({success: false, msg: 'Authenticaton failed, wrong password.'});
                     }
@@ -45,6 +47,7 @@ var functions = {
                 }
                 
                 else {
+                    
                     res.json({success:true, msg:'Successfully saved'});
                 }
             })
@@ -59,8 +62,29 @@ var functions = {
         else {
             return res.json({success:false, msg: 'No header'});
         }
+    },
+    addBook: function(req, res) {
+        var newBook = Book({
+            name: req.body.name,
+            quantity: req.body.quantity,
+            userId: req.user._id
+        });
+        
+        newBook.save(function(err, newBook) {
+            if(err)
+            console.log(err);
+            else
+            res.json({ message: 'Book added to the locker!', data: newBook });
+        })
+    },
+    getBooks: function(req, res) {
+        Book.find({ userId: req.user._id }, function(err, books) {
+    if (err)
+      res.send(err);
+
+    res.json(books);
+  });
     }
-    
     
 }
 

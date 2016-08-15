@@ -7,5 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "rajayogan",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.5.1",
+    "express-session": "^1.14.0",
+    "oauth2orize": "^1.4.0",
+    "passport-http": "^0.3.0",
+    "passport-http-jwt-bearer": "^0.1.3"
+  }
 }
